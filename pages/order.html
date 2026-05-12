@@ -293,7 +293,7 @@
                             options.</p>
                     </div>
 
-                    <div class="grid sm:grid-cols-2 gap-6 mb-12">
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                         
                         <label class="relative group cursor-pointer">
                             <input type="radio" name="diet" value="veg" class="peer sr-only"
@@ -347,6 +347,32 @@
                                 </svg>
                             </div>
                         </label>
+
+                        
+                        <label class="relative group cursor-pointer">
+                            <input type="radio" name="diet" value="mix" class="peer sr-only"
+                                onchange="updateDiet('Mix')">
+                            
+                            <div
+                                class="h-full border-2 border-gray-100 rounded-[2.5rem] p-8 transition-all duration-300 peer-checked:border-calirify-orange peer-checked:bg-calirify-orange/5 group-hover:border-gray-200">
+                                <div
+                                    class="w-20 h-20 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                                    <img src="../assets/images/calirify_images/indian_food_mix.png" alt="Mixed Veg and Non-Veg Meal"
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-xl font-bold text-calirify-dark mb-2">Mix</h3>
+                                <p class="text-sm text-gray-500 leading-relaxed">Best of both worlds. Perfect blend of vegetarian and non-vegetarian delights.</p>
+                            </div>
+                            
+                            <div
+                                class="absolute top-8 right-8 w-6 h-6 border-2 border-gray-200 rounded-full flex items-center justify-center transition-all duration-300 peer-checked:bg-calirify-orange peer-checked:border-calirify-orange peer-checked:[&_svg]:opacity-100">
+                                <svg class="w-3 h-3 text-white opacity-0 transition-opacity duration-300" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </label>
                     </div>
                 </div>
 
@@ -367,7 +393,21 @@
                     
                     <div class="mb-10">
                         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">Meal Slots</p>
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div id="slot-breakfast"
+                                class="p-6 border-2 border-gray-100 rounded-3xl flex items-center justify-between cursor-pointer transition-all"
+                                onclick="toggleSlot('breakfast')">
+                                <div class="flex items-center gap-4">
+                                    <span class="text-2xl">🌅</span>
+                                    <div>
+                                        <p class="text-sm font-bold">Breakfast</p>
+                                        <p class="text-[10px] text-gray-400">8:00–9:30 AM</p>
+                                    </div>
+                                </div>
+                                <div id="breakfast-check"
+                                    class="w-6 h-6 rounded-full border-2 border-gray-100 flex items-center justify-center">
+                                </div>
+                            </div>
                             <div id="slot-lunch"
                                 class="p-6 border-2 border-calirify-orange bg-calirify-orange/5 rounded-3xl flex items-center justify-between cursor-pointer transition-all"
                                 onclick="toggleSlot('lunch')">
@@ -386,6 +426,20 @@
                                             d="M5 13l4 4L19 7"></path>
                                     </svg></div>
                             </div>
+                            <div id="slot-snacks"
+                                class="p-6 border-2 border-gray-100 rounded-3xl flex items-center justify-between cursor-pointer transition-all"
+                                onclick="toggleSlot('snacks')">
+                                <div class="flex items-center gap-4">
+                                    <span class="text-2xl">☕</span>
+                                    <div>
+                                        <p class="text-sm font-bold">Snacks</p>
+                                        <p class="text-[10px] text-gray-400">4:30–6:00 PM</p>
+                                    </div>
+                                </div>
+                                <div id="snacks-check"
+                                    class="w-6 h-6 rounded-full border-2 border-gray-100 flex items-center justify-center">
+                                </div>
+                            </div>
                             <div id="slot-dinner"
                                 class="p-6 border-2 border-gray-100 rounded-3xl flex items-center justify-between cursor-pointer transition-all"
                                 onclick="toggleSlot('dinner')">
@@ -403,35 +457,62 @@
                         </div>
                     </div>
 
-                    
+                    <!-- Upcoming 3-Day Menu Preview Section -->
+                    <div class="mb-10 bg-gray-50/50 p-6 lg:p-8 rounded-[2.5rem] border border-gray-100 transition-all duration-300">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleMenuPreview()">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl p-3 bg-white rounded-2xl border border-gray-100" id="menu-toggle-icon">📅</span>
+                                <div>
+                                    <p class="text-[10px] font-bold text-calirify-orange uppercase tracking-widest mb-0.5">Interactive Menu</p>
+                                    <h3 class="text-lg lg:text-xl font-serif font-bold text-calirify-dark flex items-center gap-2">
+                                        Upcoming 3-Day Menu Preview
+                                        <span class="text-xs text-gray-400 font-sans font-normal opacity-70" id="menu-toggle-hint">(Tap to View)</span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg id="menu-chevron" class="w-5 h-5 text-gray-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 hidden" id="menu-preview-container">
+                            <!-- Rendered dynamically via JS -->
+                        </div>
+                    </div>
+
                     <div class="mb-10">
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">Duration (Delivery
-                            Days)</p>
-                        <div class="flex flex-wrap gap-3">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">Duration (Delivery Days)</p>
+                        <div class="flex flex-wrap gap-4 pb-2">
                             <button
-                                class="duration-btn px-6 py-4 rounded-2xl border-2 border-calirify-orange bg-calirify-orange/5 text-calirify-dark font-bold text-xs transition-all"
+                                class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-calirify-orange bg-calirify-orange/5 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
                                 onclick="updateDuration(1, this)">
-                                1 <br><span class="text-[9px] font-medium opacity-60">₹273 / meal</span>
+                                <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">1</span>
+                                <span class="text-xs font-medium opacity-75 text-gray-500">₹273 / meal</span>
                             </button>
                             <button
-                                class="duration-btn px-6 py-4 rounded-2xl border-2 border-gray-100 text-calirify-dark font-bold text-xs transition-all"
+                                class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-gray-100 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
                                 onclick="updateDuration(3, this)">
-                                3 <br><span class="text-[9px] font-medium opacity-60">₹265 / meal</span>
+                                <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">3</span>
+                                <span class="text-xs font-medium opacity-75 text-gray-500">₹265 / meal</span>
                             </button>
                             <button
-                                class="duration-btn px-6 py-4 rounded-2xl border-2 border-gray-100 text-calirify-dark font-bold text-xs transition-all"
+                                class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-gray-100 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
                                 onclick="updateDuration(7, this)">
-                                7 <br><span class="text-[9px] font-medium opacity-60">₹251 / meal</span>
+                                <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">7</span>
+                                <span class="text-xs font-medium opacity-75 text-gray-500">₹251 / meal</span>
                             </button>
                             <button
-                                class="duration-btn px-6 py-4 rounded-2xl border-2 border-gray-100 text-calirify-dark font-bold text-xs transition-all"
+                                class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-gray-100 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
                                 onclick="updateDuration(14, this)">
-                                14 <br><span class="text-[9px] font-medium opacity-60">₹238 / meal</span>
+                                <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">14</span>
+                                <span class="text-xs font-medium opacity-75 text-gray-500">₹238 / meal</span>
                             </button>
                             <button
-                                class="duration-btn px-6 py-4 rounded-2xl border-2 border-gray-100 text-calirify-dark font-bold text-xs transition-all"
+                                class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-gray-100 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
                                 onclick="updateDuration(30, this)">
-                                30 <br><span class="text-[9px] font-medium opacity-60">₹213 / meal</span>
+                                <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">30</span>
+                                <span class="text-xs font-medium opacity-75 text-gray-500">₹213 / meal</span>
                             </button>
                         </div>
                     </div>
@@ -553,32 +634,164 @@
                         <p class="text-gray-400 font-medium">Our riders will find you with these details.</p>
                     </div>
 
-                    <form class="space-y-6">
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Flat
-                                / House No. / Building</label>
-                            <input type="text" placeholder="102, Green Valley Apartments"
-                                class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Area
-                                / Street / Sector</label>
-                            <input type="text" placeholder="Sector 62, Noida"
-                                class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
-                        </div>
-                        <div class="grid sm:grid-cols-2 gap-6">
-                            <div>
-                                <label
-                                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Pincode</label>
-                                <input type="text" id="final-pincode" readonly
-                                    class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-100 text-sm font-bold text-gray-400 outline-none">
+                    <!-- Address Delivery Option Selector -->
+                    <div class="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div id="addr-same"
+                            class="p-6 border-2 border-calirify-orange bg-calirify-orange/5 rounded-3xl cursor-pointer transition-all flex items-center justify-between"
+                            onclick="setAddressMode('same')">
+                            <div class="flex items-center gap-4">
+                                <span class="text-2xl">📍</span>
+                                <div>
+                                    <p class="text-sm font-bold text-calirify-dark">Same Address</p>
+                                    <p class="text-[10px] text-gray-400">All meals to one location</p>
+                                </div>
                             </div>
+                            <div id="addr-same-check"
+                                class="w-6 h-6 rounded-full bg-calirify-orange flex items-center justify-center">
+                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="addr-split"
+                            class="p-6 border-2 border-gray-100 rounded-3xl cursor-pointer transition-all flex items-center justify-between"
+                            onclick="setAddressMode('split')">
+                            <div class="flex items-center gap-4">
+                                <span class="text-2xl">🌓</span>
+                                <div>
+                                    <p class="text-sm font-bold text-calirify-dark">Split Morning / Evening</p>
+                                    <p class="text-[10px] text-gray-400">Office / Gym / Residential split</p>
+                                </div>
+                            </div>
+                            <div id="addr-split-check"
+                                class="w-6 h-6 rounded-full border border-gray-100 flex items-center justify-center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="space-y-6">
+                        <!-- Single Address Form -->
+                        <div id="single-address-fields" class="space-y-6">
                             <div>
-                                <label
-                                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Landmark
-                                    (Optional)</label>
-                                <input type="text" placeholder="Near Apollo Hospital"
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Flat / House No. / Building / Street</label>
+                                <input type="text" id="delivery-address-single" placeholder="102, Green Valley Apartments"
                                     class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
+                            </div>
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Area / Street / Sector</label>
+                                    <input type="text" id="delivery-area-single" placeholder="Sector 62, Noida"
+                                        class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Landmark (Optional)</label>
+                                    <input type="text" id="delivery-landmark-single" placeholder="Near Apollo Hospital"
+                                        class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
+                                </div>
+                            </div>
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Pincode</label>
+                                    <div class="relative">
+                                        <input type="text" id="delivery-pincode-single" maxlength="6"
+                                            class="w-full pl-6 pr-24 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all"
+                                            oninput="onSplitPincodeChange('single')">
+                                        <button type="button" onclick="checkSplitPincode('single')" id="btn-verify-single"
+                                            class="absolute right-2 top-2 bottom-2 px-3 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-calirify-orange hover:text-white transition-all">
+                                            Verified
+                                        </button>
+                                    </div>
+                                    <p id="status-pincode-single" class="mt-2 text-[10px] text-green-600 font-semibold flex items-center gap-1">
+                                        <span class="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Serviceable Pincode
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Split Address Forms -->
+                        <div id="split-address-fields" class="hidden space-y-6">
+                            <!-- Morning Address (Breakfast & Lunch) -->
+                            <div class="p-6 bg-gray-50/50 rounded-3xl border border-gray-100 space-y-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">🌅</span>
+                                    <h3 class="text-xs font-bold tracking-wider text-calirify-dark uppercase">Morning Delivery Address <span class="text-[9px] text-gray-400 font-normal normal-case">(Breakfast & Lunch)</span></h3>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Flat / House No. / Building / Street</label>
+                                    <input type="text" id="delivery-address-morning" placeholder="e.g., Office Floor 4, Cyber City"
+                                        class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-white text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
+                                </div>
+                                <div class="grid sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Area / Street / Sector</label>
+                                        <input type="text" id="delivery-area-morning" placeholder="Sector 62, Noida"
+                                            class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Landmark (Optional)</label>
+                                        <input type="text" id="delivery-landmark-morning" placeholder="Near Apollo Hospital"
+                                            class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
+                                    </div>
+                                </div>
+                                <div class="grid sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Pincode</label>
+                                        <div class="relative">
+                                            <input type="text" id="delivery-pincode-morning" maxlength="6"
+                                                class="w-full pl-6 pr-24 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all"
+                                                oninput="onSplitPincodeChange('morning')">
+                                            <button type="button" onclick="checkSplitPincode('morning')" id="btn-verify-morning"
+                                                class="absolute right-2 top-2 bottom-2 px-3 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-calirify-orange hover:text-white transition-all">
+                                                Verified
+                                            </button>
+                                        </div>
+                                        <p id="status-pincode-morning" class="mt-2 text-[10px] text-green-600 font-semibold flex items-center gap-1">
+                                            <span class="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Serviceable Pincode
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Evening Address (Snacks & Dinner) -->
+                            <div class="p-6 bg-gray-50/50 rounded-3xl border border-gray-100 space-y-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">🌙</span>
+                                    <h3 class="text-xs font-bold tracking-wider text-calirify-dark uppercase">Evening Delivery Address <span class="text-[9px] text-gray-400 font-normal normal-case">(Snacks & Dinner)</span></h3>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Flat / House No. / Building / Street</label>
+                                    <input type="text" id="delivery-address-evening" placeholder="e.g., Block B-402, Residential Palms"
+                                        class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-white text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
+                                </div>
+                                <div class="grid sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Area / Street / Sector</label>
+                                        <input type="text" id="delivery-area-evening" placeholder="Sector 62, Noida"
+                                            class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Landmark (Optional)</label>
+                                        <input type="text" id="delivery-landmark-evening" placeholder="Near Apollo Hospital"
+                                            class="w-full px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all">
+                                    </div>
+                                </div>
+                                <div class="grid sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Pincode</label>
+                                        <div class="relative">
+                                            <input type="text" id="delivery-pincode-evening" maxlength="6"
+                                                class="w-full pl-6 pr-24 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 text-sm font-medium focus:ring-2 focus:ring-calirify-orange/20 outline-none transition-all"
+                                                oninput="onSplitPincodeChange('evening')">
+                                            <button type="button" onclick="checkSplitPincode('evening')" id="btn-verify-evening"
+                                                class="absolute right-2 top-2 bottom-2 px-3 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-calirify-orange hover:text-white transition-all">
+                                                Verified
+                                            </button>
+                                        </div>
+                                        <p id="status-pincode-evening" class="mt-2 text-[10px] text-green-600 font-semibold flex items-center gap-1">
+                                            <span class="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Serviceable Pincode
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -604,10 +817,16 @@
 
     <script>
         let currentStep = 1;
+        const pincodeStatus = {
+            single: true,
+            morning: true,
+            evening: true
+        };
         const config = {
             pincode: null,
             diet: null,
-            slots: { lunch: true, dinner: false },
+            slots: { breakfast: false, lunch: true, snacks: false, dinner: false },
+            addressMode: 'same',
             duration: 1,
             people: 1,
             skips: [], 
@@ -635,7 +854,9 @@
             resultDiv.classList.remove('hidden');
             
             config.pincode = pin;
-            document.getElementById('final-pincode').value = pin;
+            if (document.getElementById('delivery-pincode-single')) document.getElementById('delivery-pincode-single').value = pin;
+            if (document.getElementById('delivery-pincode-morning')) document.getElementById('delivery-pincode-morning').value = pin;
+            if (document.getElementById('delivery-pincode-evening')) document.getElementById('delivery-pincode-evening').value = pin;
             document.getElementById('step-summary-1').innerText = pin;
             resultDiv.innerHTML = `<div class="p-4 bg-green-50 text-green-700 rounded-xl text-xs font-bold border border-green-100 flex items-center gap-2">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
@@ -644,18 +865,165 @@
             setTimeout(() => changeStep(1), 1000);
         }
 
+        const menuData = {
+            Veg: {
+                Day1: {
+                    breakfast: "🌅 Gobi Paratha with Fresh Curd",
+                    lunch: "☀️ Bhindi Do Piaza & Dal",
+                    snacks: "☕ Samosa & Masala Chai",
+                    dinner: "🌙 Pav Bhaji Special"
+                },
+                Day2: {
+                    breakfast: "🌅 Poha with Roasted Peanuts",
+                    lunch: "☀️ Mughlai Gobhi & Kabuli",
+                    snacks: "☕ Veg Grilled Sandwich & Tea",
+                    dinner: "🌙 Subz Khurchan & Roti"
+                },
+                Day3: {
+                    breakfast: "🌅 Idli Sambar & Coconut Chutney",
+                    lunch: "☀️ Chilli Mushroom Feast",
+                    snacks: "☕ Dhokla with Chutney & Tea",
+                    dinner: "🌙 Baigan Bharta Smoked"
+                }
+            },
+            'Non-Veg': {
+                Day1: {
+                    breakfast: "🌅 Egg Masala Omelette & Toast",
+                    lunch: "☀️ Murg Do Piaza & Dal",
+                    snacks: "☕ Chicken Tikka Roll & Chai",
+                    dinner: "🌙 Keema Pav Classic"
+                },
+                Day2: {
+                    breakfast: "🌅 Scrambled Eggs with Toast",
+                    lunch: "☀️ Chicken Mughlai & Kabuli",
+                    snacks: "☕ Chicken Mayo Sandwich & Tea",
+                    dinner: "🌙 Murg Khurchan & Roti"
+                },
+                Day3: {
+                    breakfast: "🌅 Egg Bhurji Paratha",
+                    lunch: "☀️ Chilli Chicken Feast",
+                    snacks: "☕ Chicken Nuggets & Hot Tea",
+                    dinner: "🌙 Murgi Bharta Smoked"
+                }
+            },
+            Mix: {
+                Day1: {
+                    breakfast: "🌅 Egg Omelette / Gobi Paratha",
+                    lunch: "☀️ Murg Do Piaza / Bhindi Do Piaza",
+                    snacks: "☕ Chicken Tikka / Samosa & Chai",
+                    dinner: "🌙 Keema Pav / Pav Bhaji Special"
+                },
+                Day2: {
+                    breakfast: "🌅 Scrambled Eggs / Poha",
+                    lunch: "☀️ Chicken Mughlai / Mughlai Gobhi",
+                    snacks: "☕ Chicken Mayo / Veg Grilled Sandwich",
+                    dinner: "🌙 Murg / Subz Khurchan & Roti"
+                },
+                Day3: {
+                    breakfast: "🌅 Egg Bhurji / Idli Sambar",
+                    lunch: "☀️ Chilli Chicken / Chilli Mushroom",
+                    snacks: "☕ Chicken Nuggets / Dhokla & Tea",
+                    dinner: "🌙 Murgi Bharta / Baigan Bharta"
+                }
+            }
+        };
+
+        function updateMenuPreview() {
+            const diet = config.diet || 'Veg';
+            const dietKey = diet === 'Mix' ? 'Mix' : (diet === 'Non-Vegetarian' || diet === 'Non Veg' || diet === 'Non-Veg' ? 'Non-Veg' : 'Veg');
+            const data = menuData[dietKey] || menuData.Veg;
+
+            const days = ['Day1', 'Day2', 'Day3'];
+            const dayLabels = ['Tomorrow (Day 1)', 'Day 2', 'Day 3'];
+            let html = '';
+
+            days.forEach((dayKey, idx) => {
+                const dayMenu = data[dayKey];
+                html += `
+                    <div class="p-6 bg-white/5 rounded-3xl border border-gray-100 space-y-4 hover:border-calirify-orange/20 transition-all duration-300">
+                        <div class="flex items-center justify-between border-b border-gray-50 pb-3">
+                            <h4 class="text-sm font-bold text-calirify-dark">${dayLabels[idx]}</h4>
+                            <span class="text-[10px] bg-calirify-orange/10 text-calirify-orange font-bold uppercase tracking-widest px-2 py-0.5 rounded">Gourmet</span>
+                        </div>
+                        <div class="space-y-3 text-xs">
+                `;
+
+                const slots = [
+                    { id: 'breakfast', icon: '🌅', label: 'Breakfast' },
+                    { id: 'lunch', icon: '☀️', label: 'Lunch' },
+                    { id: 'snacks', icon: '☕', label: 'Snacks' },
+                    { id: 'dinner', icon: '🌙', label: 'Dinner' }
+                ];
+
+                slots.forEach(slot => {
+                    const isSelected = config.slots[slot.id];
+                    const mealName = dayMenu[slot.id];
+                    html += `
+                        <div class="flex items-start gap-2.5 transition-all duration-200 ${isSelected ? 'opacity-100 scale-[1.01]' : 'opacity-30 filter grayscale'}">
+                            <span class="text-base">${slot.icon}</span>
+                            <div>
+                                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">${slot.label} ${isSelected ? '<span class="text-[8px] bg-green-500/10 text-green-600 px-1.5 py-0.2 rounded font-bold uppercase tracking-widest ml-1">Selected</span>' : ''}</p>
+                                <p class="text-xs font-semibold text-calirify-dark mt-0.5">${mealName}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+
+            const container = document.getElementById('menu-preview-container');
+            if (container) container.innerHTML = html;
+        }
+
+        let isMenuExpanded = false;
+        function toggleMenuPreview() {
+            isMenuExpanded = !isMenuExpanded;
+            const container = document.getElementById('menu-preview-container');
+            const chevron = document.getElementById('menu-chevron');
+            const hint = document.getElementById('menu-toggle-hint');
+            const icon = document.getElementById('menu-toggle-icon');
+
+            if (container) {
+                if (isMenuExpanded) {
+                    container.classList.remove('hidden');
+                    if (chevron) chevron.classList.add('rotate-180');
+                    if (hint) hint.innerText = '(Tap to Collapse)';
+                    if (icon) icon.innerText = '📖';
+                } else {
+                    container.classList.add('hidden');
+                    if (chevron) chevron.classList.remove('rotate-180');
+                    if (hint) hint.innerText = '(Tap to View)';
+                    if (icon) icon.innerText = '📅';
+                }
+            }
+        }
+
         function updateDiet(val) {
             config.diet = val;
             document.getElementById('step-summary-2').innerText = val;
+            const mobDiet = document.getElementById('m-summary-diet');
+            if (mobDiet) mobDiet.innerText = val;
             calculatePricing();
             updateStepUI();
+            updateMenuPreview();
+
+            // Auto advance to next step after a short cinematic beat so user sees their choice is recorded
+            setTimeout(() => {
+                if (currentStep === 2) {
+                    changeStep(1);
+                }
+            }, 600);
         }
 
         function toggleMobilePricing() {
             const details = document.getElementById('mobile-pricing-details');
             const chevron = document.getElementById('pricing-chevron');
-            details.classList.toggle('hidden');
-            chevron.classList.toggle('rotate-180');
+            if (details) details.classList.toggle('hidden');
+            if (chevron) chevron.classList.toggle('rotate-180');
         }
 
         function toggleSlot(slot) {
@@ -679,6 +1047,7 @@
             config.skips = []; 
             generateCalendar();
             calculatePricing();
+            updateMenuPreview();
         }
 
         function updateDuration(days, el) {
@@ -715,6 +1084,20 @@
                 item.className = 'relative flex flex-col gap-3 p-5 bg-white rounded-3xl border border-gray-100 transition-all hover:border-gray-200';
 
                 let slotsHtml = '';
+                if (config.slots.breakfast) {
+                    const isSkipped = config.skips.includes(`${i}-breakfast`);
+                    slotsHtml += `
+                        <label class="flex items-center justify-between group cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-4 h-4 rounded border-2 flex items-center justify-center transition-all ${isSkipped ? 'border-gray-200' : 'bg-calirify-orange border-calirify-orange'}">
+                                    ${isSkipped ? '' : '<svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>'}
+                                </div>
+                                <span class="text-[10px] font-bold ${isSkipped ? 'text-gray-300 line-through' : 'text-calirify-dark'} uppercase tracking-widest">Breakfast</span>
+                            </div>
+                            <input type="checkbox" class="sr-only" ${isSkipped ? 'checked' : ''} onchange="toggleMealSkip(${i}, 'breakfast')">
+                            <span class="text-[9px] font-bold text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity">${isSkipped ? 'Add back' : 'Skip'}</span>
+                        </label>`;
+                }
                 if (config.slots.lunch) {
                     const isSkipped = config.skips.includes(`${i}-lunch`);
                     slotsHtml += `
@@ -726,6 +1109,20 @@
                                 <span class="text-[10px] font-bold ${isSkipped ? 'text-gray-300 line-through' : 'text-calirify-dark'} uppercase tracking-widest">Lunch</span>
                             </div>
                             <input type="checkbox" class="sr-only" ${isSkipped ? 'checked' : ''} onchange="toggleMealSkip(${i}, 'lunch')">
+                            <span class="text-[9px] font-bold text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity">${isSkipped ? 'Add back' : 'Skip'}</span>
+                        </label>`;
+                }
+                if (config.slots.snacks) {
+                    const isSkipped = config.skips.includes(`${i}-snacks`);
+                    slotsHtml += `
+                        <label class="flex items-center justify-between group cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-4 h-4 rounded border-2 flex items-center justify-center transition-all ${isSkipped ? 'border-gray-200' : 'bg-calirify-orange border-calirify-orange'}">
+                                    ${isSkipped ? '' : '<svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>'}
+                                </div>
+                                <span class="text-[10px] font-bold ${isSkipped ? 'text-gray-300 line-through' : 'text-calirify-dark'} uppercase tracking-widest">Snacks</span>
+                            </div>
+                            <input type="checkbox" class="sr-only" ${isSkipped ? 'checked' : ''} onchange="toggleMealSkip(${i}, 'snacks')">
                             <span class="text-[9px] font-bold text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity">${isSkipped ? 'Add back' : 'Skip'}</span>
                         </label>`;
                 }
@@ -783,7 +1180,7 @@
         function calculatePricing() {
             const perMeal = config.pricing[config.duration] || 273;
             const basePerMeal = config.pricing[1];
-            const activeSlotsCount = (config.slots.lunch ? 1 : 0) + (config.slots.dinner ? 1 : 0);
+            const activeSlotsCount = (config.slots.breakfast ? 1 : 0) + (config.slots.lunch ? 1 : 0) + (config.slots.snacks ? 1 : 0) + (config.slots.dinner ? 1 : 0);
 
             const totalPotentialMeals = activeSlotsCount * config.duration;
             const skippedMealsCount = config.skips.length;
@@ -815,7 +1212,12 @@
             }
 
             
-            const slotText = (config.slots.lunch && config.slots.dinner) ? 'L+D' : (config.slots.lunch ? 'Lunch' : (config.slots.dinner ? 'Dinner' : 'None'));
+            const slotParts = [];
+            if (config.slots.breakfast) slotParts.push('Breakfast');
+            if (config.slots.lunch) slotParts.push('Lunch');
+            if (config.slots.snacks) slotParts.push('Snacks');
+            if (config.slots.dinner) slotParts.push('Dinner');
+            const slotText = slotParts.join(' + ') || 'None';
             const summaryText = `${config.duration} Days · ${slotText}${skippedMealsCount > 0 ? ` (${skippedMealsCount} skipped)` : ''}`;
             document.getElementById('step-summary-3').innerText = summaryText;
             document.getElementById('m-summary-plan').innerText = summaryText;
@@ -884,6 +1286,9 @@
             if (mobilePricing) {
                 mobilePricing.classList.toggle('hidden', currentStep < 3);
             }
+            if (currentStep === 3) {
+                updateMenuPreview();
+            }
         }
 
         function changeStep(dir) {
@@ -909,7 +1314,7 @@
                 alert('Please select your dietary preference.');
                 return false;
             }
-            if (step === 3 && !config.slots.lunch && !config.slots.dinner) {
+            if (step === 3 && !config.slots.breakfast && !config.slots.lunch && !config.slots.snacks && !config.slots.dinner) {
                 alert('Please select at least one meal slot.');
                 return false;
             }
@@ -925,7 +1330,129 @@
                     return false;
                 }
             }
+            if (step === 5) {
+                if (config.addressMode === 'same') {
+                    const single = document.getElementById('delivery-address-single').value;
+                    const area = document.getElementById('delivery-area-single').value;
+                    if (!single) {
+                        alert('Please enter your Flat / House No. / Building address.');
+                        return false;
+                    }
+                    if (!area) {
+                        alert('Please enter your Area / Street / Sector.');
+                        return false;
+                    }
+                } else {
+                    const morning = document.getElementById('delivery-address-morning').value;
+                    const morningArea = document.getElementById('delivery-area-morning').value;
+                    const evening = document.getElementById('delivery-address-evening').value;
+                    const eveningArea = document.getElementById('delivery-area-evening').value;
+                    if (!morning) {
+                        alert('Please enter your morning Flat / House No. / Building.');
+                        return false;
+                    }
+                    if (!morningArea) {
+                        alert('Please enter your morning Area / Street / Sector.');
+                        return false;
+                    }
+                    if (!pincodeStatus.morning) {
+                        alert('Please verify your morning pincode first.');
+                        return false;
+                    }
+                    if (!evening) {
+                        alert('Please enter your evening Flat / House No. / Building.');
+                        return false;
+                    }
+                    if (!eveningArea) {
+                        alert('Please enter your evening Area / Street / Sector.');
+                        return false;
+                    }
+                    if (!pincodeStatus.evening) {
+                        alert('Please verify your evening pincode first.');
+                        return false;
+                    }
+                }
+            }
             return true;
+        }
+
+        function setAddressMode(mode) {
+            config.addressMode = mode;
+            const sameEl = document.getElementById('addr-same');
+            const splitEl = document.getElementById('addr-split');
+            const sameCheck = document.getElementById('addr-same-check');
+            const splitCheck = document.getElementById('addr-split-check');
+            const singleFields = document.getElementById('single-address-fields');
+            const splitFields = document.getElementById('split-address-fields');
+
+            if (mode === 'same') {
+                sameEl.classList.add('border-calirify-orange', 'bg-calirify-orange/5');
+                sameEl.classList.remove('border-gray-100');
+                sameCheck.classList.add('bg-calirify-orange');
+                sameCheck.classList.remove('border', 'border-gray-100');
+                sameCheck.innerHTML = `<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>`;
+
+                splitEl.classList.remove('border-calirify-orange', 'bg-calirify-orange/5');
+                splitEl.classList.add('border-gray-100');
+                splitCheck.classList.remove('bg-calirify-orange');
+                splitCheck.classList.add('border', 'border-gray-100');
+                splitCheck.innerHTML = '';
+
+                singleFields.classList.remove('hidden');
+                splitFields.classList.add('hidden');
+            } else {
+                splitEl.classList.add('border-calirify-orange', 'bg-calirify-orange/5');
+                splitEl.classList.remove('border-gray-100');
+                splitCheck.classList.add('bg-calirify-orange');
+                splitCheck.classList.remove('border', 'border-gray-100');
+                splitCheck.innerHTML = `<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>`;
+
+                sameEl.classList.remove('border-calirify-orange', 'bg-calirify-orange/5');
+                sameEl.classList.add('border-gray-100');
+                sameCheck.classList.remove('bg-calirify-orange');
+                sameCheck.classList.add('border', 'border-gray-100');
+                sameCheck.innerHTML = '';
+
+                singleFields.classList.add('hidden');
+                splitFields.classList.remove('hidden');
+            }
+        }
+
+        function onSplitPincodeChange(slot) {
+            pincodeStatus[slot] = false;
+            const btn = document.getElementById('btn-verify-' + slot);
+            const status = document.getElementById('status-pincode-' + slot);
+            if (btn) {
+                btn.className = 'absolute right-2 top-2 bottom-2 px-3 bg-calirify-orange text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:opacity-90 transition-all';
+                btn.innerText = 'Verify';
+            }
+            if (status) {
+                status.className = 'mt-2 text-[10px] text-amber-600 font-semibold flex items-center gap-1';
+                status.innerHTML = `<span class="inline-block w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span> Pincode changed - Please verify`;
+            }
+        }
+
+        function checkSplitPincode(slot) {
+            const pinVal = document.getElementById('delivery-pincode-' + slot).value.trim();
+            const isValidPin = /^[1-9][0-9]{5}$/.test(pinVal);
+            const btn = document.getElementById('btn-verify-' + slot);
+            const status = document.getElementById('status-pincode-' + slot);
+
+            if (!isValidPin) {
+                alert('Please enter a valid 6-digit Indian pincode.');
+                return;
+            }
+
+            pincodeStatus[slot] = true;
+            if (btn) {
+                btn.className = 'absolute right-2 top-2 bottom-2 px-3 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-calirify-orange hover:text-white transition-all';
+                btn.innerText = 'Verified';
+            }
+            if (status) {
+                status.className = 'mt-2 text-[10px] text-green-600 font-semibold flex items-center gap-1';
+                status.innerHTML = `<span class="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Serviceable Pincode`;
+            }
+            alert(`Pincode ${pinVal} verified successfully!`);
         }
 
         function sendOTP() {
@@ -969,7 +1496,19 @@
         updateStepUI();
         lucide.createIcons();
 
-        
+        // Auto verify pincode if passed via URL parameters (from advertisement campaigns)
+        const urlParams = new URLSearchParams(window.location.search);
+        const prefilledPincode = urlParams.get('pincode');
+        if (prefilledPincode && /^[1-9][0-9]{5}$/.test(prefilledPincode)) {
+            const pinInput = document.getElementById('check-pincode');
+            if (pinInput) {
+                pinInput.value = prefilledPincode;
+                setTimeout(() => {
+                    checkServiceability();
+                }, 400);
+            }
+        }
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); } });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
