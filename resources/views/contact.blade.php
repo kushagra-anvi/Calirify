@@ -1,0 +1,85 @@
+@extends('layouts.app')
+
+@section('title', 'Contact Us | Calirify')
+
+@section('content')
+<section class="pt-32 pb-16 bg-calirify-cream/20 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-calirify-orange/5 rounded-full -translate-y-1/2 -translate-x-1/3 blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-6 text-center relative z-10 reveal">
+        <p class="text-calirify-orange font-bold uppercase tracking-[0.3em] text-[10px] mb-4">Get In Touch</p>
+        <h1 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-6">We'd love to <span class="italic text-calirify-orange">hear</span> from you.</h1>
+        <p class="text-lg text-gray-500 max-w-xl mx-auto font-medium leading-relaxed">Have a question, feedback, or just want to say hello? Our team is always ready to help.</p>
+    </div>
+</section>
+
+<section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-5 gap-16">
+        <div class="lg:col-span-2 space-y-6 reveal">
+            <div class="bg-calirify-cream/30 rounded-[2rem] p-8 border border-calirify-orange/5">
+                <div class="w-12 h-12 bg-calirify-orange/10 rounded-2xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-calirify-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <h4 class="font-serif font-bold text-lg mb-2">Email Us</h4>
+                <p class="text-sm text-gray-500 mb-4">We'll respond within 24 hours.</p>
+                <a href="mailto:hello@calirify.in" class="text-sm font-bold text-calirify-orange hover:underline">hello@calirify.in</a>
+            </div>
+
+            <div class="bg-calirify-cream/30 rounded-[2rem] p-8 border border-calirify-orange/5">
+                <div class="w-12 h-12 bg-calirify-orange/10 rounded-2xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-calirify-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                </div>
+                <h4 class="font-serif font-bold text-lg mb-2">Call Us</h4>
+                <p class="text-sm text-gray-500 mb-4">Mon–Sat, 9 AM – 7 PM IST</p>
+                <a href="tel:+919876543210" class="text-sm font-bold text-calirify-orange hover:underline">+91 98765 43210</a>
+            </div>
+
+            <div class="bg-calirify-cream/30 rounded-[2rem] p-8 border border-calirify-orange/5">
+                <div class="w-12 h-12 bg-calirify-orange/10 rounded-2xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-calirify-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </div>
+                <h4 class="font-serif font-bold text-lg mb-2">Visit Us</h4>
+                <p class="text-sm text-gray-500">Calirify Kitchen Hub<br>Sector 62, Noida<br>Uttar Pradesh 201309</p>
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 reveal">
+            <div class="bg-white rounded-[2.5rem] p-10 lg:p-12 shadow-2xl shadow-calirify-orange/5 border border-calirify-orange/5">
+                <h3 class="text-2xl font-serif font-bold mb-2">Send us a message</h3>
+                <p class="text-sm text-gray-400 mb-10">Fill in the details below and we'll get back to you shortly.</p>
+
+                <form class="space-y-6" onsubmit="event.preventDefault();">
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2.5">First Name</label>
+                            <input type="text" placeholder="John" class="w-full px-5 py-4 rounded-2xl border border-gray-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-calirify-orange/30 focus:border-calirify-orange transition-all bg-gray-50/50 placeholder:text-gray-300">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2.5">Last Name</label>
+                            <input type="text" placeholder="Doe" class="w-full px-5 py-4 rounded-2xl border border-gray-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-calirify-orange/30 focus:border-calirify-orange transition-all bg-gray-50/50 placeholder:text-gray-300">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2.5">Email Address</label>
+                        <input type="email" placeholder="you@example.com" class="w-full px-5 py-4 rounded-2xl border border-gray-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-calirify-orange/30 focus:border-calirify-orange transition-all bg-gray-50/50 placeholder:text-gray-300">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2.5">Subject</label>
+                        <select class="w-full px-5 py-4 rounded-2xl border border-gray-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-calirify-orange/30 focus:border-calirify-orange transition-all bg-gray-50/50 text-gray-400 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236b7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_1.25rem_center] bg-no-repeat">
+                            <option>General Inquiry</option>
+                            <option>Subscription Help</option>
+                            <option>Delivery Issue</option>
+                            <option>Feedback</option>
+                            <option>Partnership</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2.5">Message</label>
+                        <textarea rows="5" placeholder="Tell us how we can help..." class="w-full px-5 py-4 rounded-2xl border border-gray-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-calirify-orange/30 focus:border-calirify-orange transition-all bg-gray-50/50 placeholder:text-gray-300 resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-calirify-orange text-white py-4 rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-[1.02] transition-all duration-300 shadow-xl shadow-calirify-orange/20 active:scale-[0.98]">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection

@@ -1,0 +1,12 @@
+{
+  "name": "calirify-web",
+  "version": "1.0.0",
+  "description": "Calirify - Clean Calorie Counted Food Subscription Website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "browser-sync start --server --files \"**/*.html,**/*.css,**/*.js\""
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.0"
+  }
+}

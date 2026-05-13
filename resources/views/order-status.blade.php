@@ -1,0 +1,65 @@
+@extends('layouts.app')
+
+@section('title', 'Track Order | Calirify')
+
+@section('content')
+<section class="pt-24 lg:pt-32 pb-8 bg-calirify-cream/20 relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-calirify-orange/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-6 text-center relative z-10 reveal">
+        <p class="text-calirify-orange font-bold uppercase tracking-[0.3em] text-[10px] mb-4">Real-time tracking</p>
+        <h1 class="text-3xl lg:text-5xl font-serif font-bold leading-tight mb-4">Where's your <span class="italic text-calirify-orange">meal plan</span>?</h1>
+        <p class="text-sm lg:text-base text-gray-500 max-w-lg mx-auto font-medium leading-relaxed opacity-60">Enter your order ID or registered phone number to see the current status of your delicious meal.</p>
+    </div>
+</section>
+
+<section class="pb-20 bg-white">
+    <div class="max-w-xl mx-auto px-6 reveal relative z-20">
+        <div class="bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-2xl shadow-calirify-orange/10 border border-calirify-orange/5 mb-10">
+            <form class="space-y-6" onsubmit="event.preventDefault(); document.getElementById('tracking-result').classList.remove('hidden'); if(window.lucide){window.lucide.createIcons();}">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2.5">Order ID or Phone Number</label>
+                    <div class="relative flex items-center">
+                        <i data-lucide="search" class="absolute left-5 w-4 h-4 text-gray-300"></i>
+                        <input type="text" placeholder="e.g. DG12345" class="w-full pl-12 pr-5 py-4 rounded-2xl border border-gray-100 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-calirify-orange/10 focus:border-calirify-orange/20 transition-all bg-gray-50/50">
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-calirify-orange text-white py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:scale-[1.02] transition-all duration-300 shadow-xl shadow-calirify-orange/20">Track Order</button>
+            </form>
+        </div>
+
+        <div id="tracking-result" class="hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div class="flex items-center justify-between p-6 bg-calirify-orange/5 rounded-3xl border border-calirify-orange/10">
+                <div>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Status</p>
+                    <p class="text-lg font-serif font-bold text-calirify-orange">Out for Delivery</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">ETA</p>
+                    <p class="text-lg font-serif font-bold text-calirify-dark">1:15 PM</p>
+                </div>
+            </div>
+
+            <div class="relative pl-8 space-y-12 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-100">
+                <div class="relative flex flex-col gap-1">
+                    <div class="absolute -left-[27px] top-1.5 w-4 h-4 rounded-full bg-calirify-orange ring-4 ring-calirify-orange/10"></div>
+                    <p class="text-sm font-bold text-calirify-dark">Out for Delivery</p>
+                    <p class="text-xs text-gray-400">Rider is 1.2km away from your location</p>
+                    <p class="text-[10px] font-bold text-gray-300 mt-1">12:50 PM</p>
+                </div>
+                <div class="relative flex flex-col gap-1 opacity-60">
+                    <div class="absolute -left-[27px] top-1.5 w-4 h-4 rounded-full bg-calirify-orange/40"></div>
+                    <p class="text-sm font-bold text-gray-800">Picked up from Kitchen</p>
+                    <p class="text-xs text-gray-400">Quality check completed and sealed</p>
+                    <p class="text-[10px] font-bold text-gray-300 mt-1">12:30 PM</p>
+                </div>
+                <div class="relative flex flex-col gap-1 opacity-40">
+                    <div class="absolute -left-[27px] top-1.5 w-4 h-4 rounded-full bg-calirify-orange/20"></div>
+                    <p class="text-sm font-bold text-gray-800">Prepared & Packed</p>
+                    <p class="text-xs text-gray-400">Your meal was cooked with fresh ingredients</p>
+                    <p class="text-[10px] font-bold text-gray-300 mt-1">12:10 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection

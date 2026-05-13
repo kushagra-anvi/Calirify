@@ -1,0 +1,47 @@
+@extends('layouts.app')
+
+@section('title', 'Refund Policy | Calirify')
+
+@section('content')
+<section class="pt-40 pb-24 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="mb-16 reveal">
+            <p class="text-calirify-orange font-bold uppercase tracking-[0.3em] text-[10px] mb-4">Support</p>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-8">Refund Policy</h1>
+            <p class="text-gray-500 font-medium leading-relaxed">Last updated: May 6, 2026</p>
+        </div>
+
+        <div class="space-y-12 reveal text-gray-600 leading-relaxed font-medium">
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">1. Cancellation Policy</h2>
+                <p>You can cancel your subscription at any time. For weekly subscriptions, cancellations must be made 24 hours before the start of the next cycle. For monthly subscriptions, you can cancel at any point, and the remaining balance will be credited back to your Calirify wallet.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">2. Refund Eligibility</h2>
+                <p>Refunds are eligible in the following cases:</p>
+                <ul class="list-disc pl-6 mt-4 space-y-2">
+                    <li>Missing delivery where the rider could not be reached.</li>
+                    <li>Incorrect meal delivered (e.g., non-veg instead of veg).</li>
+                    <li>Quality concerns reported within 2 hours of delivery.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">3. Refund Process</h2>
+                <p>To request a refund, please contact our support team via email or through the app dashboard. Once approved, the refund will be processed to your original payment method within 5-7 business days.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">4. Pausing Subscription</h2>
+                <p>We encourage users to "Pause" their subscription instead of cancelling. Pausing allows you to skip meals for a specific duration, and those skipped meals are added back to your subscription period automatically. No refunds are issued for paused days.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">5. Contact for Support</h2>
+                <p>If you have any questions regarding your refund, please reach out to us at support@calirify.in or call our helpline at +91 98765 43210.</p>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection

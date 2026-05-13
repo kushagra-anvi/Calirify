@@ -1,12 +1,25 @@
 {
-  "name": "calirify-web",
-  "version": "1.0.0",
-  "description": "Calirify - Clean Calorie Counted Food Subscription Website",
-  "main": "index.html",
-  "scripts": {
-    "dev": "browser-sync start --server --files \"**/*.html,**/*.css,**/*.js\""
-  },
-  "devDependencies": {
-    "browser-sync": "^3.0.0"
-  }
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.3.0",
+        "concurrently": "^9.2.1",
+        "laravel-vite-plugin": "^2.1.0",
+        "tailwindcss": "^4.3.0",
+        "vite": "^7.3.3"
+    },
+    "dependencies": {
+        "@alpinejs/collapse": "^3.15.12",
+        "@alpinejs/focus": "^3.15.12",
+        "@alpinejs/intersect": "^3.15.12",
+        "@tailwindcss/forms": "^0.5.11",
+        "@tailwindcss/typography": "^0.5.19",
+        "alpinejs": "^3.15.12",
+        "axios": "^1.16.0"
+    }
 }

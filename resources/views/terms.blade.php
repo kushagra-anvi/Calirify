@@ -1,0 +1,42 @@
+@extends('layouts.app')
+
+@section('title', 'Terms and Conditions | Calirify')
+
+@section('content')
+<section class="pt-40 pb-24 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="mb-16 reveal">
+            <p class="text-calirify-orange font-bold uppercase tracking-[0.3em] text-[10px] mb-4">Legal Agreement</p>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-8">Terms & Conditions</h1>
+            <p class="text-gray-500 font-medium leading-relaxed">Last updated: May 6, 2026</p>
+        </div>
+
+        <div class="space-y-12 reveal text-gray-600 leading-relaxed font-medium">
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">1. Acceptance of Terms</h2>
+                <p>By accessing or using the Calirify website or service, you agree to be bound by these Terms and Conditions. If you do not agree to all of these terms, do not use our services.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">2. Account Responsibility</h2>
+                <p>You are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer or mobile device. You agree to accept responsibility for all activities that occur under your account.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">3. Subscription & Payments</h2>
+                <p>Calirify offers weekly and monthly subscription plans. Payments are made in advance. You authorize Calirify to charge your chosen payment provider for the subscription amount. Subscriptions automatically renew unless cancelled or paused.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">4. Food Quality & Allergies</h2>
+                <p>We prioritize hygiene and quality. However, Calirify is not liable for any allergic reactions to ingredients. Users must specify any allergies during their taste profile setup, and we will do our best to accommodate, but cannot guarantee a 100% allergen-free environment.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-calirify-dark mb-4">5. Limitation of Liability</h2>
+                <p>Calirify shall not be liable for any indirect, incidental, special, consequential or punitive damages resulting from your use of the service or for any other claim related in any way to your use of the service.</p>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection
