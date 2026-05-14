@@ -455,33 +455,38 @@
                         <div class="flex flex-wrap gap-4 pb-2">
                             <button
                                 class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-calirify-orange bg-calirify-orange/5 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
+                                data-duration="1"
                                 onclick="updateDuration(1, this)">
                                 <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">1</span>
-                                <span class="text-xs font-medium opacity-75 text-gray-500">₹273 / meal</span>
+                                <span class="duration-price text-xs font-medium opacity-75 text-gray-500">₹273 / meal</span>
                             </button>
                             <button
                                 class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-gray-100 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
+                                data-duration="3"
                                 onclick="updateDuration(3, this)">
                                 <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">3</span>
-                                <span class="text-xs font-medium opacity-75 text-gray-500">₹265 / meal</span>
+                                <span class="duration-price text-xs font-medium opacity-75 text-gray-500">₹265 / meal</span>
                             </button>
                             <button
                                 class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-gray-100 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
+                                data-duration="7"
                                 onclick="updateDuration(7, this)">
                                 <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">7</span>
-                                <span class="text-xs font-medium opacity-75 text-gray-500">₹251 / meal</span>
+                                <span class="duration-price text-xs font-medium opacity-75 text-gray-500">₹251 / meal</span>
                             </button>
                             <button
                                 class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-gray-100 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
+                                data-duration="14"
                                 onclick="updateDuration(14, this)">
                                 <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">14</span>
-                                <span class="text-xs font-medium opacity-75 text-gray-500">₹238 / meal</span>
+                                <span class="duration-price text-xs font-medium opacity-75 text-gray-500">₹238 / meal</span>
                             </button>
                             <button
                                 class="duration-btn flex-shrink-0 p-6 rounded-3xl border-2 border-gray-100 text-calirify-dark transition-all text-center min-w-[125px] flex flex-col justify-center items-center"
+                                data-duration="30"
                                 onclick="updateDuration(30, this)">
                                 <span class="text-3xl font-serif font-black block mb-1 text-calirify-dark">30</span>
-                                <span class="text-xs font-medium opacity-75 text-gray-500">₹213 / meal</span>
+                                <span class="duration-price text-xs font-medium opacity-75 text-gray-500">₹213 / meal</span>
                             </button>
                         </div>
                     </div>
@@ -797,7 +802,8 @@
                 7: 251,
                 14: 238,
                 30: 213
-            }
+            },
+            matrix: null
         };
 
         // Initialize Start Date field
@@ -813,9 +819,10 @@
             }
         });
 
-        function checkServiceability() {
+        async function checkServiceability() {
             const pin = document.getElementById('check-pincode').value;
             const resultDiv = document.getElementById('pincode-result');
+            const checkBtn = document.querySelector('button[onclick="checkServiceability()"]');
 
             const isValidPin = /^[1-9][0-9]{5}$/.test(pin);
 
@@ -824,18 +831,45 @@
                 return;
             }
 
+            checkBtn.disabled = true;
+            checkBtn.innerText = 'Checking...';
             resultDiv.classList.remove('hidden');
-            
-            config.pincode = pin;
-            if (document.getElementById('delivery-pincode-single')) document.getElementById('delivery-pincode-single').value = pin;
-            if (document.getElementById('delivery-pincode-morning')) document.getElementById('delivery-pincode-morning').value = pin;
-            if (document.getElementById('delivery-pincode-evening')) document.getElementById('delivery-pincode-evening').value = pin;
-            document.getElementById('step-summary-1').innerText = pin;
-            resultDiv.innerHTML = `<div class="p-4 bg-green-50 text-green-700 rounded-xl text-xs font-bold border border-green-100 flex items-center gap-2">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
-                Calirify is available in your area! Proceeding...
+            resultDiv.innerHTML = `<div class="p-4 bg-gray-50 text-gray-400 rounded-xl text-xs font-bold border border-gray-100 flex items-center gap-2">
+                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                Checking serviceability in your area...
             </div>`;
-            setTimeout(() => changeStep(1), 1000);
+
+            try {
+                const response = await fetch(`/api/serviceability/check?pincode=${pin}`);
+                const data = await response.json();
+
+                if (response.ok && data.status === 'available') {
+                    config.pincode = pin;
+                    if (document.getElementById('delivery-pincode-single')) document.getElementById('delivery-pincode-single').value = pin;
+                    if (document.getElementById('delivery-pincode-morning')) document.getElementById('delivery-pincode-morning').value = pin;
+                    if (document.getElementById('delivery-pincode-evening')) document.getElementById('delivery-pincode-evening').value = pin;
+                    document.getElementById('step-summary-1').innerText = pin;
+                    
+                    resultDiv.innerHTML = `<div class="p-4 bg-green-50 text-green-700 rounded-xl text-xs font-bold border border-green-100 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
+                        ${data.message} Proceeding...
+                    </div>`;
+                    
+                    setTimeout(() => changeStep(1), 1000);
+                } else {
+                    resultDiv.innerHTML = `<div class="p-4 bg-red-50 text-red-700 rounded-xl text-xs font-bold border border-red-100 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 11V6a1 1 0 012 0v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H5a1 1 0 110-2h5z" transform="rotate(45 10 11)"></path></svg>
+                        ${data.message || 'Service currently unavailable in this area.'}
+                    </div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="p-4 bg-amber-50 text-amber-700 rounded-xl text-xs font-bold border border-amber-100">
+                    Unable to verify pincode. Please try again later.
+                </div>`;
+            } finally {
+                checkBtn.disabled = false;
+                checkBtn.innerText = 'Check';
+            }
         }
 
         const menuData = {
@@ -980,6 +1014,8 @@
             document.getElementById('step-summary-2').innerText = val;
             const mobDiet = document.getElementById('m-summary-diet');
             if (mobDiet) mobDiet.innerText = val;
+            
+            updateDurationLabels();
             calculatePricing();
             updateStepUI();
             updateMenuPreview();
@@ -1017,6 +1053,7 @@
                 check.classList.add('border-2', 'border-gray-100');
             }
             config.skips = []; 
+            updateDurationLabels();
             generateCalendar();
             calculatePricing();
             updateMenuPreview();
@@ -1039,6 +1076,16 @@
             config.people = Math.max(1, config.people + change);
             document.getElementById('people-count').innerText = config.people;
             calculatePricing();
+        }
+
+        function updateDurationLabels() {
+            document.querySelectorAll('.duration-btn').forEach(btn => {
+                const duration = btn.getAttribute('data-duration');
+                const priceEl = btn.querySelector('.duration-price');
+                if (priceEl && config.pricing[duration]) {
+                    priceEl.innerText = `₹${Math.round(config.pricing[duration])} / meal`;
+                }
+            });
         }
 
         function generateCalendar() {
@@ -1144,9 +1191,31 @@
         }
 
         function calculatePricing() {
-            const perMeal = config.pricing[config.duration] || 273;
-            const basePerMeal = config.pricing[1];
-            const activeSlotsCount = (config.slots.breakfast ? 1 : 0) + (config.slots.lunch ? 1 : 0) + (config.slots.snacks ? 1 : 0) + (config.slots.dinner ? 1 : 0);
+            const dietKey = config.diet ? config.diet.toLowerCase().replace('-', '_') : 'veg';
+            const slotKeys = [];
+            if (config.slots.breakfast) slotKeys.push('breakfast');
+            if (config.slots.lunch) slotKeys.push('lunch');
+            if (config.slots.snacks) slotKeys.push('snacks');
+            if (config.slots.dinner) slotKeys.push('dinner');
+            
+            // Default slot if none selected (for base price calculation)
+            const primarySlot = slotKeys[0] || 'lunch';
+
+            let perMeal = config.pricing[config.duration];
+            let basePerMeal = config.pricing[1];
+
+            // If matrix is available, try to find exact match
+            if (config.matrix && config.matrix[config.duration]) {
+                const searchKey = `${dietKey}_${primarySlot}`;
+                if (config.matrix[config.duration][searchKey]) {
+                    perMeal = config.matrix[config.duration][searchKey].price_per_meal;
+                }
+                if (config.matrix[1][searchKey]) {
+                    basePerMeal = config.matrix[1][searchKey].price_per_meal;
+                }
+            }
+
+            const activeSlotsCount = slotKeys.length;
 
             const totalPotentialMeals = activeSlotsCount * config.duration;
             const skippedMealsCount = config.skips.length;
@@ -1256,13 +1325,15 @@
 
             const newStep = currentStep + dir;
             if (newStep < 1 || newStep > 5) {
-                if (newStep > 5) alert('Subscription Created! (Proceeding to payment...)');
+                if (newStep > 5) submitOrder();
                 return;
             }
 
             currentStep = newStep;
             updateStepUI();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (newStep !== 3) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
         function validateStep(step) {
@@ -1392,8 +1463,9 @@
             }
         }
 
-        function checkSplitPincode(slot) {
-            const pinVal = document.getElementById('delivery-pincode-' + slot).value.trim();
+        async function checkSplitPincode(slot) {
+            const inputEl = document.getElementById('delivery-pincode-' + slot);
+            const pinVal = inputEl ? inputEl.value.trim() : '';
             const isValidPin = /^[1-9][0-9]{5}$/.test(pinVal);
             const btn = document.getElementById('btn-verify-' + slot);
             const status = document.getElementById('status-pincode-' + slot);
@@ -1403,16 +1475,47 @@
                 return;
             }
 
-            pincodeStatus[slot] = true;
             if (btn) {
-                btn.className = 'absolute right-2 top-2 bottom-2 px-3 bg-gray-100 text-gray-500 text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-calirify-orange hover:text-white transition-all';
-                btn.innerText = 'Verified';
+                btn.disabled = true;
+                btn.innerText = 'Checking...';
             }
-            if (status) {
-                status.className = 'mt-2 text-[10px] text-green-600 font-semibold flex items-center gap-1';
-                status.innerHTML = `<span class="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Serviceable Pincode`;
+
+            try {
+                const response = await fetch(`/api/serviceability/check?pincode=${pinVal}`);
+                const data = await response.json();
+
+                if (response.ok && data.status === 'available') {
+                    pincodeStatus[slot] = true;
+                    if (btn) {
+                        btn.className = 'absolute right-2 top-2 bottom-2 px-3 bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-[9px] font-bold uppercase tracking-widest rounded-lg transition-all';
+                        btn.innerText = 'Verified';
+                        btn.disabled = false;
+                    }
+                    if (status) {
+                        status.className = 'mt-2 text-[10px] text-green-600 font-semibold flex items-center gap-1';
+                        status.innerHTML = `<span class="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Serviceable Pincode`;
+                    }
+                } else {
+                    pincodeStatus[slot] = false;
+                    if (btn) {
+                        btn.className = 'absolute right-2 top-2 bottom-2 px-3 bg-red-500/10 text-red-600 border border-red-500/20 text-[9px] font-bold uppercase tracking-widest rounded-lg transition-all';
+                        btn.innerText = 'Retry';
+                        btn.disabled = false;
+                    }
+                    if (status) {
+                        status.className = 'mt-2 text-[10px] text-red-600 font-semibold flex items-center gap-1';
+                        status.innerHTML = `<span class="inline-block w-1.5 h-1.5 bg-red-500 rounded-full"></span> Unserviceable Pincode`;
+                    }
+                    alert(data.message || 'Service unavailable for this pincode.');
+                }
+            } catch (error) {
+                console.error('Pincode check error:', error);
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerText = 'Verify';
+                }
+                alert('Connection error. Please try again.');
             }
-            alert(`Pincode ${pinVal} verified successfully!`);
         }
 
         function sendOTP() {
@@ -1423,6 +1526,61 @@
             }
             document.getElementById('otp-container').classList.remove('hidden');
             alert('OTP Sent to ' + phone + ' (Use any 4 digits to verify)');
+        }
+
+        async function submitOrder() {
+            const nextBtn = document.getElementById('next-btn');
+            const originalText = nextBtn.innerText;
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Creating Subscription...';
+
+            const activeSlots = [];
+            if (config.slots.breakfast) activeSlots.push('breakfast');
+            if (config.slots.lunch) activeSlots.push('lunch');
+            if (config.slots.snacks) activeSlots.push('snacks');
+            if (config.slots.dinner) activeSlots.push('dinner');
+
+            const dietPref = (config.diet || 'Veg').toLowerCase().replace('-', '_');
+
+            const payload = {
+                customer: {
+                    first_name: (document.getElementById('contact-name').value || 'John').split(' ')[0],
+                    last_name: (document.getElementById('contact-name').value || 'User').split(' ').slice(1).join(' ') || 'User',
+                    email: 'user@example.com',
+                    phone: document.getElementById('contact-phone').value || '9876543210',
+                },
+                address: {
+                    street: config.addressMode === 'same' ? (document.getElementById('delivery-address-single')?.value || '102 Green Valley') : (document.getElementById('delivery-address-morning')?.value || '102 Green Valley'),
+                    landmark: config.addressMode === 'same' ? (document.getElementById('delivery-landmark-single')?.value || 'Near Hospital') : (document.getElementById('delivery-landmark-morning')?.value || 'Near Hospital'),
+                    city: 'Noida',
+                    state: 'Uttar Pradesh',
+                    pincode: config.pincode || '201301',
+                    address_type: 'home',
+                },
+                diet: {
+                    diet_preference: dietPref,
+                    allergies: [],
+                    dislikes: '',
+                },
+                subscription: {
+                    start_date: document.getElementById('start-date')?.value || '2024-05-15',
+                    duration_days: config.duration,
+                    active_slots: activeSlots,
+                    price_paise: Math.round(parseFloat(document.getElementById('final-total').innerText || '0') * 100),
+                    auto_renew: true,
+                }
+            };
+
+            // BYPASS FOR DEVELOPMENT: Simulate successful creation
+            console.log('Development Bypass: Subscription Payload', payload);
+            
+            setTimeout(() => {
+                alert('Subscription Created Successfully! ID: CAL-DEMO-' + (Math.floor(Math.random()*9000)+1000));
+                window.location.href = '/dashboard';
+                
+                nextBtn.disabled = false;
+                nextBtn.innerText = originalText;
+            }, 1500);
         }
 
         function verifyOTP() {
@@ -1449,12 +1607,35 @@
         }
 
         // Initialize Slider & Forms State on Load
-        setTimeout(() => {
+        setTimeout(async () => {
             generateCalendar();
             calculatePricing();
             updateStepUI();
             if (window.lucide) {
                 window.lucide.createIcons();
+            }
+
+            // Fetch live pricing
+            try {
+                const response = await fetch('/api/pricing');
+                const result = await response.json();
+                if (response.ok && result.data) {
+                    config.matrix = result.data;
+                    
+                    // Update initial pricing fallback for labels
+                    Object.keys(config.matrix).forEach(duration => {
+                        const durationPricing = config.matrix[duration];
+                        const firstKey = Object.keys(durationPricing)[0];
+                        if (firstKey) {
+                            config.pricing[duration] = durationPricing[firstKey].price_per_meal;
+                        }
+                    });
+
+                    updateDurationLabels();
+                    calculatePricing();
+                }
+            } catch (error) {
+                console.error('Failed to fetch pricing:', error);
             }
         }, 100);
 
